@@ -1,0 +1,7 @@
+name: RSVP LIST
+description: Allows users to RSVP for Events and provides a contact list for administrators
+package: RVSP List
+type: module
+version: 1.0
+core_version_requirement: ^9
+configure: rsvplist.admin_settings
