@@ -13,17 +13,20 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Defines a form to configure RSVP List module settings
  */
-class RSVPSettingsForm extends ConfigFormBase {
+class RSVPSettingsForm extends ConfigFormBase
+{
     /**
      * {@inheritdoc}
      */
-    public function getFormId() {
+    public function getFormId()
+    {
         return 'rsvplist_admin_settings';
     }
     /**
      * {@inheritdoc}
      */
-    protected function getEditableConfigNames() {
+    protected function getEditableConfigNames()
+    {
         return [
           'rsvplist.settings'
         ];
@@ -31,7 +34,8 @@ class RSVPSettingsForm extends ConfigFormBase {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(array $form, FormStateInterface $form_state, Request $request = NULL) {
+    public function buildForm(array $form, FormStateInterface $form_state, Request $request = null)
+    {
         $types = node_type_get_names();
         $config = $this->config('rsvplist.settings');
         $form['rsvplist_types'] = array(
@@ -41,7 +45,7 @@ class RSVPSettingsForm extends ConfigFormBase {
           '#options' => $types,
           '#description' => t('On the specified node types, an RSVP option will be available and can be enabled while tht node is being edited.'),
         );
-        $form['array_filter'] = array('#type' => 'value', '#value' => TRUE);
+        $form['array_filter'] = array('#type' => 'value', '#value' => true);
 
         return parent::buildForm($form, $form_state);
     }
@@ -49,7 +53,8 @@ class RSVPSettingsForm extends ConfigFormBase {
     /**
      * {@inheritdoc}
      */
-    public function submitForm(array &$form, FormStateInterface $form_state) {
+    public function submitForm(array &$form, FormStateInterface $form_state)
+    {
         $allowed_types = array_filter($form_state->getValue('rsvplist_types'));
 
         sort($allowed_types);

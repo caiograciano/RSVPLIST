@@ -15,23 +15,30 @@ use Drupal\node\NodeInterface;
  *  admin_label = @Translation("RSVP Block"),
  * )
  */
-class RSVPBlock extends BlockBase {
+class RSVPBlock extends BlockBase
+{
 
     /**
      * {@inheritDoc}
      */
-    public function build() {
+    public function build()
+    {
         return \Drupal::formBuilder()->getForm('Drupal\rsvplist\Form\RSVPForm');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function blockAccess(AccountInterface $account) {
-        /** @var \Drupal\node\Entity\Node $node */
+    public function blockAccess(AccountInterface $account)
+    {
+        /**
+ * @var \Drupal\node\Entity\Node $node 
+*/
         $node = \Drupal::routeMatch()->getParameter('node');
 
-        /** @var \Drupal\rsvplist\EnablerService $enabler */
+        /**
+ * @var \Drupal\rsvplist\EnablerService $enabler 
+*/
         $enabler = \Drupal::service('rsvplist.enabler');
 
         if ($node instanceof NodeInterface) {

@@ -14,7 +14,8 @@ use Drupal\Core\Form\FormStateInterface;
  * Provides an RSVP Email Form
  */
 
-class RSVPForm extends FormBase {
+class RSVPForm extends FormBase
+{
     /**
      * (@inheritdoc)
      */
@@ -38,7 +39,7 @@ class RSVPForm extends FormBase {
             '#type' => 'textfield',
             '#size' => 25,
             '#description' => t("We'll send updates to the email address your provide."),
-            '#required' => TRUE,
+            '#required' => true,
         );
         $form['submit'] = array(
             '#type' => 'submit',
@@ -55,8 +56,8 @@ class RSVPForm extends FormBase {
     /**
      * Undocumented function
      *
-     * @param array $form
-     * @param FormStateInterface $form_state
+     * @param  array              $form
+     * @param  FormStateInterface $form_state
      * @return void
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
@@ -80,29 +81,30 @@ class RSVPForm extends FormBase {
         if(!empty($results->fetchCol())) {
             //we found a row with this nid and email.
             $form_state->setErrorByName(
-                'email', t('The address %mail is already subscribed to this list',array('%mail' => $value ))
+                'email', t('The address %mail is already subscribed to this list', array('%mail' => $value ))
             );
         }
 
     }
     /**
-     * 
      * Undocumented function
      *
-     * @param array $form
-     * @param FormStateInterface $form_state
+     * @param  array              $form
+     * @param  FormStateInterface $form_state
      * @return void
      */
-    public function submitForm(array &$form, FormStateInterface $form_state) {
+    public function submitForm(array &$form, FormStateInterface $form_state)
+    {
         $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
         \Drupal::database()->insert('rsvplist')
-        ->fields(array(
-            'mail' => $form_state->getValue('email'),
-            'nid' => $form_state->getValue('nid'),
-            'uid' => $user->id(),
-            'created' => time(),
-            )
-        )->execute();
+            ->fields(
+                array(
+                'mail' => $form_state->getValue('email'),
+                'nid' => $form_state->getValue('nid'),
+                'uid' => $user->id(),
+                'created' => time(),
+                )
+            )->execute();
 
         \Drupal::messenger()->addMessage('Email saved !');
     }
